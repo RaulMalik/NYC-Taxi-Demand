@@ -1,0 +1,49 @@
+[project]
+name = "nyc-taxi-demand-platform"
+version = "0.1.0"
+description = "Production-style data platform for NYC taxi demand: ingest, model, forecast, and serve BI-ready marts."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "pyarrow>=16",
+    "duckdb>=1.1",
+    "pandera>=0.20",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pyyaml>=6",
+    "typer>=0.12",
+    "rich>=13",
+    "requests>=2.31",
+    "scikit-learn>=1.4",
+    "statsmodels>=0.14",
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "plotly>=5.22",
+]
+
+[project.optional-dependencies]
+geo = ["geopandas>=1.0", "shapely>=2.0", "pyogrio>=0.9", "pyproj>=3.6"]
+dev = ["pytest>=8", "ruff>=0.5", "ipykernel>=6"]
+
+[project.scripts]
+taxiflow = "taxiflow.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/taxiflow"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,32 @@
+project_name: nyc-taxi-demand-platform
+
+ingest:
+  source: live              # live | synthetic
+  fleets: [yellow, green]
+  months: ["2022-01", "2022-02"]
+  tlc_base_url: "https://d37ci6vzurychx.cloudfront.net/trip-data"
+  zone_lookup_url: "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+  zone_shapefile_url: "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zones.zip"
+  sample_rows: null         # cap rows per raw file (null = keep all)
+
+window:
+  start: "2022-01-01"
+  end: "2022-03-01"
+
+cleaning:
+  min_fare: 0.0
+  max_fare: 500.0
+  min_distance: 0.0
+  max_distance: 100.0
+  min_duration_min: 1.0
+  max_duration_min: 180.0
+  max_passengers: 6
+
+forecast:
+  freq: "h"
+  test_days: 7
+  fleets: [yellow, green]
+
+anomaly:
+  contamination: 0.01
+  sample_rows: 200000
